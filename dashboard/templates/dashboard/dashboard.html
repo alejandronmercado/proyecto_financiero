@@ -1,0 +1,145 @@
+<!-- dashboard/templates/dashboard/dashboard.html -->
+{% extends 'dashboard/base.html' %}
+
+{% block title %}Dol.Ar{% endblock %}
+
+{% block content %}
+
+<!-- Cotizaciones del Día -->
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-dollar-sign me-2"></i>Cotizaciones del Día ({{ hoy|date:"d/m/Y" }})</h5>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover table-striped">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Tipo</th>
+                                <th>Compra</th>
+                                <th>Venta</th>
+                                <th>Diferencia</th>
+                                <th>Spread</th>
+                                <th>Variación 24h</th>
+                                <th>Última Actualización</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for cot in cotizaciones %}
+                            <tr>
+                                <td>
+                                    <strong>{{ cot.tipo }}</strong>
+                                </td>
+                                <td>${{ cot.compra|floatformat:2 }}</td>
+                                <td>${{ cot.venta|floatformat:2 }}</td>
+                                <td>${{ cot.diferencia|floatformat:2 }}</td>
+                                <td>
+                                    <span class="badge bg-{% if cot.spread > 2 %}danger{% else %}warning{% endif %}">
+                                        {{ cot.spread|floatformat:2 }}%
+                                    </span>
+                                </td>
+                                <td>
+                                    {% if cot.variacion > 0 %}
+                                        <span class="positive">
+                                            <i class="fas fa-arrow-up me-1"></i>{{ cot.variacion|floatformat:2 }}%
+                                        </span>
+                                    {% elif cot.variacion < 0 %}
+                                        <span class="negative">
+                                            <i class="fas fa-arrow-down me-1"></i>{{ cot.variacion|floatformat:2 }}%
+                                        </span>
+                                    {% else %}
+                                        <span class="text-muted">0.00%</span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <small class="text-muted">
+                                        {{ cot.actualizado|date:"H:i" }}
+                                    </small>
+                                </td>
+                            </tr>
+                            {% empty %}
+                            <tr>
+                                <td colspan="7" class="text-center text-muted py-4">
+                                    <i class="fas fa-exclamation-triangle me-2"></i>
+                                    No hay cotizaciones para hoy
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Índices Económicos -->
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-chart-bar me-2"></i>Índices Económicos ({{ hoy|date:"d/m/Y" }})</h5>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    {% for indice in indices %}
+                    <div class="col-md-6 mb-3">
+                        <div class="card border-{% if indice.nombre == 'Reservas Internacionales' %}success{% else %}info{% endif %}">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div>
+                                        <h6 class="card-title mb-1">{{ indice.nombre }}</h6>
+                                        <small class="text-muted">Actualizado: {{ indice.actualizado|date:"H:i" }}</small>
+                                    </div>
+                                    <div class="text-end">
+                                        <h3 class="mb-0">
+                                            {% if indice.unidad == '%' %}
+                                                {{ indice.valor|floatformat:2 }}%
+                                            {% else %}
+                                                ${{ indice.valor|floatformat:2 }}
+                                            {% endif %}
+                                        </h3>
+                                        <small class="text-muted">{{ indice.unidad }}</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <div class="col-12 text-center text-muted py-4">
+                        <i class="fas fa-exclamation-triangle me-2"></i>
+                        No hay índices para hoy
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Acciones Rápidas -->
+<div class="row mt-4">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0"><i class="fas fa-bolt me-2"></i>Acciones Rápidas</h5>
+            </div>
+            <div class="card-body">
+                <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                    <a href="{% url 'dashboard:actualizar_datos' %}" class="btn btn-primary me-2">
+                        <i class="fas fa-sync-alt me-1"></i>Actualizar Datos
+                    </a>
+                    <a href="{% url 'dashboard:cotizaciones_list' %}" class="btn btn-secondary me-2">
+                        <i class="fas fa-list me-1"></i>Ver Histórico
+                    </a>
+                    <a href="{% url 'admin:index' %}" target="_blank" class="btn btn-outline-dark">
+                        <i class="fas fa-cog me-1"></i>Panel Admin
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

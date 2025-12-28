@@ -1,0 +1,24 @@
+{% extends 'dashboard/base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="alert alert-success" role="alert">
+        <h4 class="alert-heading"><i class="bi bi-check-circle-fill"></i> ¡Actualización completada!</h4>
+        <p>Los datos financieros se han actualizado correctamente.</p>
+        <hr>
+        
+        {% if resultado %}
+        <h5>Resumen:</h5>
+        <ul>
+            {% for key, value in resultado.items %}
+            <li><strong>{{ key }}:</strong> {{ value }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        
+        <div class="mt-3">
+            <a href="/" class="btn btn-primary">Volver</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
