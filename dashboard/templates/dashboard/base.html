@@ -61,18 +61,18 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'dashboard:cotizaciones_list' %}">
+                        <a class="nav-link" href="{% url 'cotizaciones' %}">
                             <i class="bi bi-currency-exchange"></i> Cotizaciones
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'dashboard:indices_list' %}">
+                        <a class="nav-link" href="{% url 'indices' %}">
                             <i class="bi bi-bar-chart"></i> Índices
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'dashboard:actualizar_datos' %}">
-                            <i class="bi bi-arrow-clockwise"></i> Actualizar
+                        <a class="nav-link" href="{% url 'actualizar' %}">
+                            <i class="bi bi-arrow-clockwise"></i> Actualizar Datos
                         </a>
                     </li>
                     <li class="nav-item">
@@ -80,6 +80,11 @@
                             <i class="bi bi-gear"></i> Admin
                         </a>
                     </li>
+                    <li class="nav-item">
+                    <a class="nav-link" href="{% url 'mercado_internacional' %}">
+                        <i class="fas fa-globe-americas"></i> Mercado Internacional
+                    </a>
+                </li>
                 </ul>
             </div>
         </div>
