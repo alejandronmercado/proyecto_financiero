@@ -3,8 +3,7 @@ import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 from datetime import datetime, timedelta
-from .models import Cotizacion, IndiceEconomico
-
+from dashboard.models import Cotizacion, IndiceEconomico
 
 class DolarAPIService:
     BASE_URL = 'https://dolarapi.com/v1'

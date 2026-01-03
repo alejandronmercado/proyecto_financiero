@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 """
 
 from pathlib import Path
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,10 +21,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-bfdtz91!ecssyl=6!yqyp$h6*1up6@mfx&g07484=#p5s7==v^'
+SECRET_KEY = config('SECRET_KEY', default='django-insecure-bfdtz91!ecssyl=6!yqyp$h6*1up6@mfx&g07484=#p5s7==v^')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = config('DEBUG', default=True, cast=bool)
 
 ALLOWED_HOSTS = []
 
@@ -116,3 +117,15 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+
+ALPHA_VANTAGE_API_KEY = config('ALPHA_VANTAGE_API_KEY', default='')
+ALPHA_VANTAGE_BASE_URL = 'https://www.alphavantage.co/query'
+
+MERCADO_INTERNACIONAL_SYMBOLS = {
+    'acciones': ['AAPL', 'MSFT', 'TSLA', 'GOOGL', 'META', 'NVDA'],
+    'etfs': ['SPY', 'QQQ', 'VTI', 'VOO', 'GLD', 'IWM', 'EEM'],
+    'indices': ['^GSPC', '^IXIC', '^DJI']  # Nota: Alpha Vantage no tiene todos los índices
+}
+
+ACTUALIZACION_AUTOMATICA_HORAS = 6
+
