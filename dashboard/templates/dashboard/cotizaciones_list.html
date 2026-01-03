@@ -24,7 +24,7 @@
                 </div>
                 <div class="col-md-4 d-flex align-items-end">
                     <button type="submit" class="btn btn-primary me-2">Filtrar</button>
-                    <a href="{% url 'cotizaciones' %}" class="btn btn-secondary">Limpiar</a>
+                    <a href="{% url 'dashboard:cotizaciones_list' %}" class="btn btn-secondary">Limpiar</a>
                 </div>
             </form>
         </div>
@@ -114,7 +114,7 @@
         <a href="{% url 'admin:index' %}" class="btn btn-secondary">
             <i class="bi bi-gear"></i> Administrar Cotizaciones
         </a>
-        <a href="{% url 'actualizar' %}" class="btn btn-success">
+        <a href="{% url 'dashboard:actualizar_datos' %}" class="btn btn-success">
             <i class="bi bi-arrow-clockwise"></i> Actualizar Datos
         </a>
     </div>
