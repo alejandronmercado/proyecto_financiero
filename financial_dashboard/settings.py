@@ -72,14 +72,32 @@ WSGI_APPLICATION = 'financial_dashboard.wsgi.application'
 
 
 # Database
-# https://docs.djangoproject.com/en/6.0/ref/settings/#databases
-
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        # Motor de PostgreSQL
+        'ENGINE': config('DB_ENGINE', default='django.db.backends.postgresql'),
+        
+        # Nombre de la base de datos
+        'NAME': config('DB_NAME', default='financial_dashboard'),
+        
+        # Credenciales
+        'USER': config('DB_USER', default='postgres'),
+        'PASSWORD': config('DB_PASSWORD', default=''),
+        
+        # Conexión
+        'HOST': config('DB_HOST', default='localhost'),
+        'PORT': config('DB_PORT', default='5432'),
+        
+        # Opciones de PostgreSQL
+        'OPTIONS': {
+            'client_encoding': 'UTF8',
+        },
+        
+        # Mantener conexiones abiertas (mejor performance)
+        'CONN_MAX_AGE': 600,
     }
 }
+
 
 
 # Password validation
